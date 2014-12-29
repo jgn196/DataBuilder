@@ -154,6 +154,19 @@ namespace DataBuilderTests
                 result);
         }
 
+        /// <summary>
+        /// Tests building repeating patterns.
+        /// </summary>
+        [TestMethod]
+        public void BuildRepeating()
+        {
+            byte[] result = new DataBuilder()
+                .Repeat(4, new DataBuilder().Append((byte) 0xFF))
+                .Build();
+
+            AssertEquals(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, result);
+        }
+
         private void AssertEquals(byte[] expected, byte[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length, "Array lengths are not equal.");

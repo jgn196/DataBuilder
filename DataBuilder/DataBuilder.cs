@@ -190,6 +190,26 @@ namespace Capgemini.DataBuilder
         }
 
         /// <summary>
+        /// Adds the result of a secondary DataBuilder as a repeating pattern.
+        /// 
+        /// Passing a DataBuilder itself as the repeating pattern is illegal.
+        /// </summary>
+        /// <param name="count">The number of times the pattern must repeat.</param>
+        /// <param name="pattern">The DataBuilder to get the pattern from.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Repeat(uint count, DataBuilder pattern)
+        {
+            Condition.Ensures(pattern).IsNotNull().Evaluate(pattern != this);
+
+            for (int i = 0; i < count; i++)
+            {
+                recipeElements.Add(pattern.Build());
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Builds the data according to the "recipe" that has been built up by calling methods on this object.
         /// </summary>
         /// <returns>The new data.</returns>
