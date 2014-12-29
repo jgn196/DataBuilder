@@ -37,6 +37,12 @@
     <AssemblyOriginatorKeyFile>DataBuilder.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Capgemini.CommonObjectUtils">
+      <HintPath>..\packages\Capgemini.CommonObjectUtils.1.1\lib\net40\Capgemini.CommonObjectUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="CuttingEdge.Conditions">
+      <HintPath>..\packages\CuttingEdge.Conditions.1.2.0.0\lib\NET35\CuttingEdge.Conditions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DataBuilder.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
