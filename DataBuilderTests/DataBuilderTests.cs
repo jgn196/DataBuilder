@@ -79,5 +79,25 @@ namespace DataBuilderTests
                     Enumerable.SequenceEqual(expectedResults[encoding], result));
             }
         }
+
+        /// <summary>
+        /// Tests building signed integer data sets.
+        /// </summary>
+        [TestMethod]
+        public void BuildSignedIntegers()
+        {
+            System.Diagnostics.Debug.Assert(BitConverter.IsLittleEndian);
+
+            byte[] result = new DataBuilder()
+                .Append((sbyte)1)
+                .Append((short)2)
+                .Append(3)
+                .Append(4L)
+                .Build();
+
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                new byte[] { 0x01, 0x02, 0x00, 0x03, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+                result));
+        }
     }
 }

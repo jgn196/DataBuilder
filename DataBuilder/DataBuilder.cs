@@ -67,6 +67,53 @@ namespace Capgemini.DataBuilder
         }
 
         /// <summary>
+        /// Adds a signed byte to the build "recipe".
+        /// </summary>
+        /// <param name="value">The byte to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(sbyte value)
+        {
+            recipeElements.Add(new byte[] { (byte) value });
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a 16-bit signed integer to the build "recipe".
+        /// </summary>
+        /// <param name="value">The integer to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(short value)
+        {
+            recipeElements.Add(BitConverter.GetBytes(value));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a 32-bit signed integer to the build "recipe".
+        /// </summary>
+        /// <param name="value">The integer to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(int value)
+        {
+            recipeElements.Add(BitConverter.GetBytes(value));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a 64-bit signed integer to the build "recipe".
+        /// </summary>
+        /// <param name="value">The integer to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(long value)
+        {
+            recipeElements.Add(BitConverter.GetBytes(value));
+            return this;
+        }
+
+        /// <summary>
         /// Builds the data according to the "recipe" that has been built up by calling methods on this object.
         /// </summary>
         /// <returns>The new data.</returns>
