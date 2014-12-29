@@ -18,6 +18,22 @@ namespace Capgemini.DataBuilder
     public class DataBuilder
     {
         private IList<byte[]> recipeElements = new List<byte[]>();
+        private Encoding encoding = ASCIIEncoding.ASCII;
+
+        /// <summary>
+        /// Sets the encoding to use when appending text strings.
+        /// Any text strings that have already been appended are unaffected.
+        /// </summary>
+        /// <param name="encoding">The new text encoding.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder SetEncoding(Encoding encoding)
+        {
+            Condition.Ensures(encoding).IsNotNull();
+
+            this.encoding = encoding;
+
+            return this;
+        }
 
         /// <summary>
         /// Adds an arbitary chunk of binary data to the build "recipe".
@@ -34,14 +50,18 @@ namespace Capgemini.DataBuilder
         }
 
         /// <summary>
-        /// Adds an ASCII string to the build "recipe".
+        /// Adds a string to the build "recipe".
         /// The string will not be null terminated.
+        /// 
+        /// If the SetEncoding method has not been called, encoding defaults to ASCII.
         /// </summary>
         /// <param name="value">The string to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(string value)
         {
-            recipeElements.Add(ASCIIEncoding.ASCII.GetBytes(value));
+            Condition.Ensures(value).IsNotNull();
+
+            recipeElements.Add(encoding.GetBytes(value));
             
             return this;
         }

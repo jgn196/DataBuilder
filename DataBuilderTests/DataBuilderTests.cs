@@ -53,14 +53,31 @@ namespace DataBuilderTests
         }
 
         /// <summary>
-        /// Tests building ASCII strings.
+        /// Tests building strings with different encodings.
         /// </summary>
         [TestMethod]
-        public void BuildAscii()
+        public void BuildStrings()
         {
-            Assert.IsTrue(
-                Enumerable.SequenceEqual(
-                    new byte[] { 0x46, 0x6F, 0x6F }, new DataBuilder().Append("Foo").Build()));
+            string testString = "Foo€";
+            IDictionary<Encoding, byte[]> expectedResults = new Dictionary<Encoding, byte[]>() 
+            { 
+                {ASCIIEncoding.ASCII, new byte[]{0x46, 0x6F, 0x6F, 0x3F}},
+                {UnicodeEncoding.UTF7, new byte[]{0x46, 0x6F, 0x6F, 0x2B, 0x49, 0x4B, 0x77, 0x2D}},
+                {UnicodeEncoding.UTF8, new byte[]{0x46, 0x6F, 0x6F, 0xE2, 0x82, 0xAC}},
+                // Little endian UTF-16
+                {UnicodeEncoding.Unicode, new byte[]{0x46, 0x00, 0x6F, 0x00, 0x6F, 0x00, 0xAC, 0x20}},
+                // Big endian UTF-16
+                {UnicodeEncoding.BigEndianUnicode, new byte[]{0x00, 0x46, 0x00, 0x6F, 0x00, 0x6F, 0x20, 0xAC}},
+                // Little endian
+                {UnicodeEncoding.UTF32, new byte[]{0x46, 0x00, 0x00, 0x00, 0x6F, 0x00, 0x00, 0x00, 0x6F, 0x00, 0x00, 0x00, 0xAC, 0x20, 0x00, 0x00}},
+            };
+
+            foreach (Encoding encoding in expectedResults.Keys)
+            {
+                byte[] result = new DataBuilder().SetEncoding(encoding).Append(testString).Build();
+                Assert.IsTrue(
+                    Enumerable.SequenceEqual(expectedResults[encoding], result));
+            }
         }
     }
 }
