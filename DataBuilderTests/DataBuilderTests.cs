@@ -51,5 +51,16 @@ namespace DataBuilderTests
             Assert.AreEqual(6, result.Length);
             Assert.IsTrue(Enumerable.Range(1, 6).SequenceEqual(result.Select(b => (int)b)));
         }
+
+        /// <summary>
+        /// Tests building ASCII strings.
+        /// </summary>
+        [TestMethod]
+        public void BuildAscii()
+        {
+            Assert.IsTrue(
+                Enumerable.SequenceEqual(
+                    new byte[] { 0x46, 0x6F, 0x6F }, new DataBuilder().Append("Foo").Build()));
+        }
     }
 }

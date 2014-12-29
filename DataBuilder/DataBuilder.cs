@@ -34,6 +34,19 @@ namespace Capgemini.DataBuilder
         }
 
         /// <summary>
+        /// Adds an ASCII string to the build "recipe".
+        /// The string will not be null terminated.
+        /// </summary>
+        /// <param name="value">The string to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(string value)
+        {
+            recipeElements.Add(ASCIIEncoding.ASCII.GetBytes(value));
+            
+            return this;
+        }
+
+        /// <summary>
         /// Builds the data according to the "recipe" that has been built up by calling methods on this object.
         /// </summary>
         /// <returns>The new data.</returns>
