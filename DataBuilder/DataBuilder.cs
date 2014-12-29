@@ -19,6 +19,9 @@ namespace Capgemini.DataBuilder
     {
         private IList<byte[]> recipeElements = new List<byte[]>();
         private Encoding encoding = ASCIIEncoding.ASCII;
+        private ByteOrder endianness = ByteOrder.LittleEndian;
+
+        public enum ByteOrder { LittleEndian, BigEndian };
 
         /// <summary>
         /// Sets the encoding to use when appending text strings.
@@ -36,6 +39,19 @@ namespace Capgemini.DataBuilder
         }
 
         /// <summary>
+        /// Sets the byte order (endianness) to use when appending integers.
+        /// Any integers that have already been appeneded are unaffected.
+        /// </summary>
+        /// <param name="endianness">The new byte order.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder SetByteOrder(ByteOrder endianness)
+        {
+            this.endianness = endianness;
+
+            return this;
+        }
+
+        /// <summary>
         /// Adds an arbitary chunk of binary data to the build "recipe".
         /// </summary>
         /// <param name="value">The data that should be copied into the recipe.</param>
@@ -44,7 +60,7 @@ namespace Capgemini.DataBuilder
         {
             Condition.Ensures(value).IsNotNull();
 
-            recipeElements.Add((byte[]) value.Clone());
+            recipeElements.Add((byte[])value.Clone());
 
             return this;
         }
@@ -62,7 +78,7 @@ namespace Capgemini.DataBuilder
             Condition.Ensures(value).IsNotNull();
 
             recipeElements.Add(encoding.GetBytes(value));
-            
+
             return this;
         }
 
@@ -73,7 +89,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(sbyte value)
         {
-            recipeElements.Add(new byte[] { (byte) value });
+            recipeElements.Add(new byte[] { (byte)value });
 
             return this;
         }
@@ -92,71 +108,83 @@ namespace Capgemini.DataBuilder
 
         /// <summary>
         /// Adds a 16-bit signed integer to the build "recipe".
+        /// 
+        /// If the SetByteOrder method has not been called, little endian is used by default.
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(short value)
         {
-            recipeElements.Add(BitConverter.GetBytes(value));
+            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
             return this;
         }
 
         /// <summary>
         /// Adds an unsigned 16-bit integer to the build "recipe".
+        /// 
+        /// If the SetByteOrder method has not been called, little endian is used by default.
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(ushort value)
         {
-            recipeElements.Add(BitConverter.GetBytes(value));
+            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
             return this;
         }
 
         /// <summary>
         /// Adds a 32-bit signed integer to the build "recipe".
+        /// 
+        /// If the SetByteOrder method has not been called, little endian is used by default.
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(int value)
         {
-            recipeElements.Add(BitConverter.GetBytes(value));
+            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
             return this;
         }
 
         /// <summary>
         /// Adds an unsigned 32-bit integer to the build "recipe".
+        /// 
+        /// If the SetByteOrder method has not been called, little endian is used by default.
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(uint value)
         {
-            recipeElements.Add(BitConverter.GetBytes(value));
+            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
             return this;
         }
 
         /// <summary>
         /// Adds a 64-bit signed integer to the build "recipe".
+        /// 
+        /// If the SetByteOrder method has not been called, little endian is used by default.
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(long value)
         {
-            recipeElements.Add(BitConverter.GetBytes(value));
+            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
             return this;
         }
 
         /// <summary>
         /// Adds an unsigned 64-bit integer to the build "recipe".
+        /// 
+        /// If the SetByteOrder method has not been called, little endian is used by default.
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(ulong value)
         {
-            recipeElements.Add(BitConverter.GetBytes(value));
+            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
             return this;
         }
@@ -175,6 +203,18 @@ namespace Capgemini.DataBuilder
             }
 
             return result.ToArray();
+        }
+
+        private byte[] CorrectByteOrder(byte[] value)
+        {
+            ByteOrder systemByteOrder = BitConverter.IsLittleEndian ? ByteOrder.LittleEndian : ByteOrder.BigEndian;
+
+            if (endianness != systemByteOrder)
+            {
+                Array.Reverse(value);
+            }
+
+            return value;
         }
     }
 }

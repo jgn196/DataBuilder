@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DataBuilderTests
 {
@@ -80,14 +79,13 @@ namespace DataBuilderTests
         }
 
         /// <summary>
-        /// Tests building signed integer data sets.
+        /// Tests building signed little endian integer data sets.
         /// </summary>
         [TestMethod]
-        public void BuildSignedIntegers()
+        public void BuildSignedLittleEndianIntegers()
         {
-            System.Diagnostics.Debug.Assert(BitConverter.IsLittleEndian);
-
             byte[] result = new DataBuilder()
+                .SetByteOrder(DataBuilder.ByteOrder.LittleEndian)
                 .Append((sbyte)-1)
                 .Append((short)-2)
                 .Append(-3)
@@ -100,14 +98,13 @@ namespace DataBuilderTests
         }
 
         /// <summary>
-        /// Tests building unsigned integer data sets.
+        /// Tests building unsigned little endian integer data sets.
         /// </summary>
         [TestMethod]
-        public void BuildUnsignedIntegers()
+        public void BuildUnsignedLittleEndianIntegers()
         {
-            System.Diagnostics.Debug.Assert(BitConverter.IsLittleEndian);
-
             byte[] result = new DataBuilder()
+                .SetByteOrder(DataBuilder.ByteOrder.LittleEndian)
                 .Append((byte)1)
                 .Append((ushort)2)
                 .Append((uint)3)
@@ -116,6 +113,44 @@ namespace DataBuilderTests
 
             AssertEquals(
                 new byte[] { 0x01, 0x02, 0x00, 0x03, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+                result);
+        }
+
+        /// <summary>
+        /// Tests building signed little endian integer data sets.
+        /// </summary>
+        [TestMethod]
+        public void BuildSignedBigEndianIntegers()
+        {
+            byte[] result = new DataBuilder()
+                .SetByteOrder(DataBuilder.ByteOrder.BigEndian)
+                .Append((sbyte)-1)
+                .Append((short)-2)
+                .Append(-3)
+                .Append(-4L)
+                .Build();
+
+            AssertEquals(
+                new byte[] { 0xFF, 0xFF, 0xFE, 0xFF, 0xFF, 0xFF, 0xFD, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC },
+                result);
+        }
+
+        /// <summary>
+        /// Tests building unsigned big endian integers.
+        /// </summary>
+        [TestMethod]
+        public void BuildUnsignedBigEndianIntegers()
+        {
+            byte[] result = new DataBuilder()
+                .SetByteOrder(DataBuilder.ByteOrder.BigEndian)
+                .Append((byte)1)
+                .Append((ushort)2)
+                .Append((uint)3)
+                .Append((ulong)4)
+                .Build();
+
+            AssertEquals(
+                new byte[] { 0x01, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04 },
                 result);
         }
 
