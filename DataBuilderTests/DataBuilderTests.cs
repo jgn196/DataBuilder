@@ -34,7 +34,7 @@ namespace DataBuilderTests
             byte[] result = new DataBuilder().Append(source).Build();
 
             Assert.AreNotSame(source, result);
-            Assert.IsTrue(Enumerable.SequenceEqual(source, result));
+            AssertEquals(source, result);
         }
 
         /// <summary>
@@ -75,8 +75,7 @@ namespace DataBuilderTests
             foreach (Encoding encoding in expectedResults.Keys)
             {
                 byte[] result = new DataBuilder().SetEncoding(encoding).Append(testString).Build();
-                Assert.IsTrue(
-                    Enumerable.SequenceEqual(expectedResults[encoding], result));
+                AssertEquals(expectedResults[encoding], result);
             }
         }
 
@@ -89,15 +88,45 @@ namespace DataBuilderTests
             System.Diagnostics.Debug.Assert(BitConverter.IsLittleEndian);
 
             byte[] result = new DataBuilder()
-                .Append((sbyte)1)
-                .Append((short)2)
-                .Append(3)
-                .Append(4L)
+                .Append((sbyte)-1)
+                .Append((short)-2)
+                .Append(-3)
+                .Append(-4L)
                 .Build();
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
+            AssertEquals(
+                new byte[] { 0xFF, 0xFE, 0xFF, 0xFD, 0xFF, 0xFF, 0xFF, 0xFC, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+                result);
+        }
+
+        /// <summary>
+        /// Tests building unsigned integer data sets.
+        /// </summary>
+        [TestMethod]
+        public void BuildUnsignedIntegers()
+        {
+            System.Diagnostics.Debug.Assert(BitConverter.IsLittleEndian);
+
+            byte[] result = new DataBuilder()
+                .Append((byte)1)
+                .Append((ushort)2)
+                .Append((uint)3)
+                .Append((ulong)4)
+                .Build();
+
+            AssertEquals(
                 new byte[] { 0x01, 0x02, 0x00, 0x03, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
-                result));
+                result);
+        }
+
+        private void AssertEquals(byte[] expected, byte[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length, "Array lengths are not equal.");
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], actual[i], "Elements at index " + i + " are not equal.");
+            }
         }
     }
 }

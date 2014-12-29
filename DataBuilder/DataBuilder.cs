@@ -79,11 +79,35 @@ namespace Capgemini.DataBuilder
         }
 
         /// <summary>
+        /// Adds a byte to the build "recipe".
+        /// </summary>
+        /// <param name="value">The byte to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(byte value)
+        {
+            recipeElements.Add(new byte[] { value });
+
+            return this;
+        }
+
+        /// <summary>
         /// Adds a 16-bit signed integer to the build "recipe".
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder Append(short value)
+        {
+            recipeElements.Add(BitConverter.GetBytes(value));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an unsigned 16-bit integer to the build "recipe".
+        /// </summary>
+        /// <param name="value">The integer to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(ushort value)
         {
             recipeElements.Add(BitConverter.GetBytes(value));
 
@@ -103,6 +127,18 @@ namespace Capgemini.DataBuilder
         }
 
         /// <summary>
+        /// Adds an unsigned 32-bit integer to the build "recipe".
+        /// </summary>
+        /// <param name="value">The integer to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(uint value)
+        {
+            recipeElements.Add(BitConverter.GetBytes(value));
+
+            return this;
+        }
+
+        /// <summary>
         /// Adds a 64-bit signed integer to the build "recipe".
         /// </summary>
         /// <param name="value">The integer to add.</param>
@@ -110,6 +146,18 @@ namespace Capgemini.DataBuilder
         public DataBuilder Append(long value)
         {
             recipeElements.Add(BitConverter.GetBytes(value));
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an unsigned 64-bit integer to the build "recipe".
+        /// </summary>
+        /// <param name="value">The integer to add.</param>
+        /// <returns>This DataBuilder for chaining calls.</returns>
+        public DataBuilder Append(ulong value)
+        {
+            recipeElements.Add(BitConverter.GetBytes(value));
+
             return this;
         }
 
