@@ -21,8 +21,6 @@ namespace Capgemini.DataBuilder
         private Encoding encoding = ASCIIEncoding.ASCII;
         private ByteOrder endianness = ByteOrder.LittleEndian;
 
-        public enum ByteOrder { LittleEndian, BigEndian };
-
         /// <summary>
         /// Sets the encoding to use when appending text strings.
         /// Any text strings that have already been appended are unaffected.
@@ -56,7 +54,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The data that should be copied into the recipe.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(byte[] value)
+        public DataBuilder AppendBytes(byte[] value)
         {
             Condition.Ensures(value).IsNotNull();
 
@@ -73,7 +71,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The string to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(string value)
+        public DataBuilder AppendText(string value)
         {
             Condition.Ensures(value).IsNotNull();
 
@@ -87,7 +85,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The byte to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(sbyte value)
+        public DataBuilder AppendSByte(sbyte value)
         {
             recipeElements.Add(new byte[] { (byte)value });
 
@@ -99,7 +97,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The byte to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(byte value)
+        public DataBuilder AppendByte(byte value)
         {
             recipeElements.Add(new byte[] { value });
 
@@ -113,7 +111,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(short value)
+        public DataBuilder AppendInt16(short value)
         {
             recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
@@ -127,7 +125,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(ushort value)
+        public DataBuilder AppendUInt16(ushort value)
         {
             recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
@@ -141,7 +139,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(int value)
+        public DataBuilder AppendInt32(int value)
         {
             recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
@@ -155,7 +153,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(uint value)
+        public DataBuilder AppendUInt32(uint value)
         {
             recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 
@@ -169,7 +167,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(long value)
+        public DataBuilder AppendInt64(long value)
         {
             recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
             return this;
@@ -182,7 +180,7 @@ namespace Capgemini.DataBuilder
         /// </summary>
         /// <param name="value">The integer to add.</param>
         /// <returns>This DataBuilder for chaining calls.</returns>
-        public DataBuilder Append(ulong value)
+        public DataBuilder AppendUInt64(ulong value)
         {
             recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
 

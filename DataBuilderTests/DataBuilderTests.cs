@@ -30,7 +30,9 @@ namespace DataBuilderTests
         {
             byte[] source = new byte[] { 1, 2, 3 };
 
-            byte[] result = new DataBuilder().Append(source).Build();
+            byte[] result = new DataBuilder()
+                .AppendBytes(source)
+                .Build();
 
             Assert.AreNotSame(source, result);
             AssertEquals(source, result);
@@ -45,7 +47,10 @@ namespace DataBuilderTests
             byte[] source1 = new byte[] { 1, 2, 3 };
             byte[] source2 = new byte[] { 4, 5, 6 };
 
-            byte[] result = new DataBuilder().Append(source1).Append(source2).Build();
+            byte[] result = new DataBuilder()
+                .AppendBytes(source1)
+                .AppendBytes(source2)
+                .Build();
 
             Assert.AreEqual(6, result.Length);
             Assert.IsTrue(Enumerable.Range(1, 6).SequenceEqual(result.Select(b => (int)b)));
@@ -73,7 +78,10 @@ namespace DataBuilderTests
 
             foreach (Encoding encoding in expectedResults.Keys)
             {
-                byte[] result = new DataBuilder().SetEncoding(encoding).Append(testString).Build();
+                byte[] result = new DataBuilder()
+                    .SetEncoding(encoding)
+                    .AppendText(testString)
+                    .Build();
                 AssertEquals(expectedResults[encoding], result);
             }
         }
@@ -85,11 +93,11 @@ namespace DataBuilderTests
         public void BuildSignedLittleEndianIntegers()
         {
             byte[] result = new DataBuilder()
-                .SetByteOrder(DataBuilder.ByteOrder.LittleEndian)
-                .Append((sbyte)-1)
-                .Append((short)-2)
-                .Append(-3)
-                .Append(-4L)
+                .SetByteOrder(ByteOrder.LittleEndian)
+                .AppendSByte(-1)
+                .AppendInt16(-2)
+                .AppendInt32(-3)
+                .AppendInt64(-4)
                 .Build();
 
             AssertEquals(
@@ -104,11 +112,11 @@ namespace DataBuilderTests
         public void BuildUnsignedLittleEndianIntegers()
         {
             byte[] result = new DataBuilder()
-                .SetByteOrder(DataBuilder.ByteOrder.LittleEndian)
-                .Append((byte)1)
-                .Append((ushort)2)
-                .Append((uint)3)
-                .Append((ulong)4)
+                .SetByteOrder(ByteOrder.LittleEndian)
+                .AppendByte(1)
+                .AppendUInt16(2)
+                .AppendUInt32(3)
+                .AppendUInt64(4)
                 .Build();
 
             AssertEquals(
@@ -123,11 +131,11 @@ namespace DataBuilderTests
         public void BuildSignedBigEndianIntegers()
         {
             byte[] result = new DataBuilder()
-                .SetByteOrder(DataBuilder.ByteOrder.BigEndian)
-                .Append((sbyte)-1)
-                .Append((short)-2)
-                .Append(-3)
-                .Append(-4L)
+                .SetByteOrder(ByteOrder.BigEndian)
+                .AppendSByte(-1)
+                .AppendInt16(-2)
+                .AppendInt32(-3)
+                .AppendInt64(-4)
                 .Build();
 
             AssertEquals(
@@ -142,11 +150,11 @@ namespace DataBuilderTests
         public void BuildUnsignedBigEndianIntegers()
         {
             byte[] result = new DataBuilder()
-                .SetByteOrder(DataBuilder.ByteOrder.BigEndian)
-                .Append((byte)1)
-                .Append((ushort)2)
-                .Append((uint)3)
-                .Append((ulong)4)
+                .SetByteOrder(ByteOrder.BigEndian)
+                .AppendByte(1)
+                .AppendUInt16(2)
+                .AppendUInt32(3)
+                .AppendUInt64(4)
                 .Build();
 
             AssertEquals(
@@ -161,7 +169,7 @@ namespace DataBuilderTests
         public void BuildRepeating()
         {
             byte[] result = new DataBuilder()
-                .Repeat(4, new DataBuilder().Append((byte) 0xFF))
+                .Repeat(4, new DataBuilder().AppendByte((byte) 0xFF))
                 .Build();
 
             AssertEquals(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, result);
