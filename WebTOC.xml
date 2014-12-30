@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Title="Welcome to the DataBuilder project." Url="html/c59a729f-4835-4a99-b013-9e95155e2e06.htm" />
+  <HelpTOCNode Id="c63f5619-5346-4547-a664-93460af37711" Title="Version History" Url="html/f2eb69f2-37c0-4b20-b24c-90d16eec36cb.htm">
+    <HelpTOCNode Title="Version 1.0.0.0" Url="html/0a34f86d-cee3-4436-bc85-f814f457c358.htm" />
+  </HelpTOCNode>
+  <HelpTOCNode Id="bc8caafe-7d2c-4773-8208-f1f25f8f5ea0" Title="Capgemini.DataBuilder" Url="html/f92a7a0b-50e9-5f66-52df-c274b054e4b8.htm">
+    <HelpTOCNode Title="ByteOrder Enumeration" Url="html/bbb82743-1f47-add0-13ed-993db5de9618.htm" />
+    <HelpTOCNode Id="bce3f409-8ae2-4861-9099-f875ae633120" Title="DataBuilder Class" Url="html/fa2a0143-efa9-f0ab-f969-cf0d32e698a3.htm">
+      <HelpTOCNode Title="DataBuilder Constructor " Url="html/446c0a32-5690-7c5e-7308-a22d40731bc0.htm" />
+      <HelpTOCNode Id="24814ab5-ee3e-4ef1-893d-d26b0e7bd5aa" Title="DataBuilder Methods" Url="html/4551f442-1d85-a186-e863-d577ca39601b.htm">
+        <HelpTOCNode Title="AppendByte Method " Url="html/c26deb3e-a20b-8b73-a25b-71192d217b8f.htm" />
+        <HelpTOCNode Title="AppendBytes Method " Url="html/75e9eee7-09d0-593b-c0ba-486a25157f9c.htm" />
+        <HelpTOCNode Title="AppendInt16 Method " Url="html/7f78bb4b-d913-2cf2-f5cc-5726c2eae5a8.htm" />
+        <HelpTOCNode Title="AppendInt32 Method " Url="html/3a7b6649-7dc9-eb2e-d4df-906bd1c7eff6.htm" />
+        <HelpTOCNode Title="AppendInt64 Method " Url="html/c47bbd90-4d9d-e757-ddaf-20b22886e6a5.htm" />
+        <HelpTOCNode Title="AppendSByte Method " Url="html/c9ed1e58-1379-97a9-0cdc-97db8d7a1d26.htm" />
+        <HelpTOCNode Title="AppendText Method " Url="html/9d398ff4-312f-2139-1e84-fe538fc67de8.htm" />
+        <HelpTOCNode Title="AppendUInt16 Method " Url="html/de0ceec3-b8dc-7c45-0be5-765b523e0b26.htm" />
+        <HelpTOCNode Title="AppendUInt32 Method " Url="html/4d5b9b0f-872a-cdd9-dc82-94400e1e9651.htm" />
+        <HelpTOCNode Title="AppendUInt64 Method " Url="html/5814af6f-79ba-3c25-b356-f8336c5218ca.htm" />
+        <HelpTOCNode Title="Build Method " Url="html/1b4eba22-bc90-0b78-561d-0aa5fced3f00.htm" />
+        <HelpTOCNode Id="ac0800c3-b639-47aa-80fe-affd0b9ff3b5" Title="Equals Method " Url="html/75c7d92f-c67d-81cd-4896-510fd68ceee8.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/74d944a2-5ce7-0e0c-c7b6-59ecffcb61a8.htm" />
+          <HelpTOCNode Title="Equals Method (DataBuilder)" Url="html/13e44ddf-7b7c-be38-2091-a8b648117c0a.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="GetHashCode Method " Url="html/f6410c50-890a-b84a-c93a-f8e11f723cb9.htm" />
+        <HelpTOCNode Title="Repeat Method " Url="html/b9bd8d76-69af-56f5-bce4-4caf919844e3.htm" />
+        <HelpTOCNode Title="SetByteOrder Method " Url="html/5ccc6db2-7c57-1aad-8ef4-c40acdc354d6.htm" />
+        <HelpTOCNode Title="SetEncoding Method " Url="html/98939fe8-2ad6-e2ae-6d3b-dc6f112e68ad.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/ebc14d3c-f0a0-c392-923e-66318ceea0b4.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>

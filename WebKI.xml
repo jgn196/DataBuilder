@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="AppendByte method" Url="html/c26deb3e-a20b-8b73-a25b-71192d217b8f.htm" />
+  <HelpKINode Title="AppendBytes method" Url="html/75e9eee7-09d0-593b-c0ba-486a25157f9c.htm" />
+  <HelpKINode Title="AppendInt16 method" Url="html/7f78bb4b-d913-2cf2-f5cc-5726c2eae5a8.htm" />
+  <HelpKINode Title="AppendInt32 method" Url="html/3a7b6649-7dc9-eb2e-d4df-906bd1c7eff6.htm" />
+  <HelpKINode Title="AppendInt64 method" Url="html/c47bbd90-4d9d-e757-ddaf-20b22886e6a5.htm" />
+  <HelpKINode Title="AppendSByte method" Url="html/c9ed1e58-1379-97a9-0cdc-97db8d7a1d26.htm" />
+  <HelpKINode Title="AppendText method" Url="html/9d398ff4-312f-2139-1e84-fe538fc67de8.htm" />
+  <HelpKINode Title="AppendUInt16 method" Url="html/de0ceec3-b8dc-7c45-0be5-765b523e0b26.htm" />
+  <HelpKINode Title="AppendUInt32 method" Url="html/4d5b9b0f-872a-cdd9-dc82-94400e1e9651.htm" />
+  <HelpKINode Title="AppendUInt64 method" Url="html/5814af6f-79ba-3c25-b356-f8336c5218ca.htm" />
+  <HelpKINode Title="BigEndian enumeration member" Url="html/bbb82743-1f47-add0-13ed-993db5de9618.htm" />
+  <HelpKINode Title="Build method" Url="html/1b4eba22-bc90-0b78-561d-0aa5fced3f00.htm" />
+  <HelpKINode Title="ByteOrder enumeration" Url="html/bbb82743-1f47-add0-13ed-993db5de9618.htm" />
+  <HelpKINode Title="Capgemini.DataBuilder namespace" Url="html/f92a7a0b-50e9-5f66-52df-c274b054e4b8.htm" />
+  <HelpKINode Title="Capgemini.DataBuilder.ByteOrder enumeration" Url="html/bbb82743-1f47-add0-13ed-993db5de9618.htm" />
+  <HelpKINode Title="Capgemini.DataBuilder.DataBuilder class" Url="html/fa2a0143-efa9-f0ab-f969-cf0d32e698a3.htm" />
+  <HelpKINode Title="DataBuilder class">
+    <HelpKINode Title="DataBuilder Class" Url="html/fa2a0143-efa9-f0ab-f969-cf0d32e698a3.htm" />
+    <HelpKINode Title="about DataBuilder class" Url="html/fa2a0143-efa9-f0ab-f969-cf0d32e698a3.htm" />
+    <HelpKINode Title="constructor" Url="html/446c0a32-5690-7c5e-7308-a22d40731bc0.htm" />
+    <HelpKINode Title="methods" Url="html/4551f442-1d85-a186-e863-d577ca39601b.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DataBuilder.AppendByte method" Url="html/c26deb3e-a20b-8b73-a25b-71192d217b8f.htm" />
+  <HelpKINode Title="DataBuilder.AppendBytes method" Url="html/75e9eee7-09d0-593b-c0ba-486a25157f9c.htm" />
+  <HelpKINode Title="DataBuilder.AppendInt16 method" Url="html/7f78bb4b-d913-2cf2-f5cc-5726c2eae5a8.htm" />
+  <HelpKINode Title="DataBuilder.AppendInt32 method" Url="html/3a7b6649-7dc9-eb2e-d4df-906bd1c7eff6.htm" />
+  <HelpKINode Title="DataBuilder.AppendInt64 method" Url="html/c47bbd90-4d9d-e757-ddaf-20b22886e6a5.htm" />
+  <HelpKINode Title="DataBuilder.AppendSByte method" Url="html/c9ed1e58-1379-97a9-0cdc-97db8d7a1d26.htm" />
+  <HelpKINode Title="DataBuilder.AppendText method" Url="html/9d398ff4-312f-2139-1e84-fe538fc67de8.htm" />
+  <HelpKINode Title="DataBuilder.AppendUInt16 method" Url="html/de0ceec3-b8dc-7c45-0be5-765b523e0b26.htm" />
+  <HelpKINode Title="DataBuilder.AppendUInt32 method" Url="html/4d5b9b0f-872a-cdd9-dc82-94400e1e9651.htm" />
+  <HelpKINode Title="DataBuilder.AppendUInt64 method" Url="html/5814af6f-79ba-3c25-b356-f8336c5218ca.htm" />
+  <HelpKINode Title="DataBuilder.Build method" Url="html/1b4eba22-bc90-0b78-561d-0aa5fced3f00.htm" />
+  <HelpKINode Title="DataBuilder.DataBuilder constructor" Url="html/446c0a32-5690-7c5e-7308-a22d40731bc0.htm" />
+  <HelpKINode Title="DataBuilder.Equals method" Url="html/75c7d92f-c67d-81cd-4896-510fd68ceee8.htm" />
+  <HelpKINode Title="DataBuilder.GetHashCode method" Url="html/f6410c50-890a-b84a-c93a-f8e11f723cb9.htm" />
+  <HelpKINode Title="DataBuilder.Repeat method" Url="html/b9bd8d76-69af-56f5-bce4-4caf919844e3.htm" />
+  <HelpKINode Title="DataBuilder.SetByteOrder method" Url="html/5ccc6db2-7c57-1aad-8ef4-c40acdc354d6.htm" />
+  <HelpKINode Title="DataBuilder.SetEncoding method" Url="html/98939fe8-2ad6-e2ae-6d3b-dc6f112e68ad.htm" />
+  <HelpKINode Title="DataBuilder.ToString method" Url="html/ebc14d3c-f0a0-c392-923e-66318ceea0b4.htm" />
+  <HelpKINode Title="Equals method" Url="html/75c7d92f-c67d-81cd-4896-510fd68ceee8.htm" />
+  <HelpKINode Title="GetHashCode method" Url="html/f6410c50-890a-b84a-c93a-f8e11f723cb9.htm" />
+  <HelpKINode Title="LittleEndian enumeration member" Url="html/bbb82743-1f47-add0-13ed-993db5de9618.htm" />
+  <HelpKINode Title="Repeat method" Url="html/b9bd8d76-69af-56f5-bce4-4caf919844e3.htm" />
+  <HelpKINode Title="SetByteOrder method" Url="html/5ccc6db2-7c57-1aad-8ef4-c40acdc354d6.htm" />
+  <HelpKINode Title="SetEncoding method" Url="html/98939fe8-2ad6-e2ae-6d3b-dc6f112e68ad.htm" />
+  <HelpKINode Title="ToString method" Url="html/ebc14d3c-f0a0-c392-923e-66318ceea0b4.htm" />
+  <HelpKINode Title="version">
+    <HelpKINode Title="1.0.0.0" Url="html/0a34f86d-cee3-4436-bc85-f814f457c358.htm" />
+    <HelpKINode Title="history" Url="html/f2eb69f2-37c0-4b20-b24c-90d16eec36cb.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Welcome" Url="html/c59a729f-4835-4a99-b013-9e95155e2e06.htm" />
+</HelpKI>
