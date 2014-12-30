@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Capgemini.DataBuilder</id>
+    <version>1.0</version>
+    <title>DataBuilder</title>
+    <authors>John Nash</authors>
+    <owners>John Nash</owners>
+    <licenseUrl>http://github.com/jgn196/DataBuilder/blob/develop/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/jgn196/DataBuilder</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A .Net class library to make writing small binary data samples (suitable for unit testing) easy.</description>
+    <releaseNotes>The first release of the library supports building data using raw data in byte arrays, signed and unsigned integers in 8, 16, 32 and 64 bit sizes with both little and big endian byte order and text strings in various encodings.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+  </metadata>
+</package>
