@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="c59a729f-4835-4a99-b013-9e95155e2e06" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>This is a .Net class library to make writing small binary data samples (suitable for unit testing) easy.</para>
+		</introduction>
+
+		<section>
+			<title>Getting Started</title>
+			<content>
+				<para>You use the <codeEntityReference>T:Capgemini.DataBuilder.DataBuilder</codeEntityReference> class to generate data.</para>
+			</content>
+		</section>
+
+    <section>
+      <title>Target .Net Framework</title>
+      <content>
+        <para>The library targets the .Net 4.5 framework.</para>
+      </content>
+    </section>
+
+		<relatedTopics>
+			<link xlink:href="f2eb69f2-37c0-4b20-b24c-90d16eec36cb" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>

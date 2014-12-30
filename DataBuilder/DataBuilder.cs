@@ -10,12 +10,34 @@ namespace Capgemini.DataBuilder
 {
     /// <summary>
     /// A utility class for making writing small binary data samples easy.
-    /// 
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// Clients instantiate an instance of the builder, call various methods in the Fluent style to configure 
     /// how data will be generated and then call the Build method to build the data.
+    /// </para>
+    /// <para>
     /// The order in which methods are called is the order in which their arguments will be added to the 
     /// finished built data.
-    /// </summary>
+    /// </para>
+    /// </remarks>
+    /// <example>
+    /// <para>
+    /// This example creates a simple binary header for a hyperthetical file format.
+    /// </para>
+    /// <para>
+    /// The header has 3 marker bytes that spell "FOO" in ASCII, followed by 2 16-bit unsigned integers that contain the major and minor
+    /// file format version. Finally, the header contains an unsigned 64-bit integer that holds the size of data in the file.
+    /// </para>
+    /// <code>
+    /// byte[] header = new DataBuilder()
+    ///   .AppendText("FOO") // Marker for the FOO format
+    ///   .AppendUInt16(1)   // Major version 1
+    ///   .AppendUInt16(0)   // Minor version 0
+    ///   .AppendUInt64(data.Length)
+    ///   .Build();
+    /// </code>
+    /// </example>
     public sealed class DataBuilder : IEquatable<DataBuilder>
     {
         private IList<IRecipeElement> recipeElements = new List<IRecipeElement>();
@@ -282,7 +304,7 @@ namespace Capgemini.DataBuilder
         /// <summary>
         /// Overrides the ToString method to return the class name and a list of the builder's "recipe" elements.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The string representation.</returns>
         public override string ToString()
         {
             return new ToStringBuilder(this)
