@@ -38,9 +38,9 @@ namespace Capgemini.DataBuilder
     ///   .Build();
     /// </code>
     /// </example>
-    public sealed class DataBuilder
+    public sealed class DataBuilder : IEquatable<DataBuilder>
     {
-        private IList<byte[]> recipeElements = new List<byte[]>();
+        private IList<IRecipeElement> recipeElements = new List<IRecipeElement>();
         private Encoding encoding = ASCIIEncoding.ASCII;
         private ByteOrder endianness = ByteOrder.LittleEndian;
 
@@ -81,7 +81,7 @@ namespace Capgemini.DataBuilder
         {
             Condition.Ensures(value).IsNotNull();
 
-            recipeElements.Add((byte[])value.Clone());
+            recipeElements.Add(new DataRecipeElement(value));
 
             return this;
         }
@@ -98,7 +98,7 @@ namespace Capgemini.DataBuilder
         {
             Condition.Ensures(value).IsNotNull();
 
-            recipeElements.Add(encoding.GetBytes(value));
+            recipeElements.Add(new DataRecipeElement(encoding.GetBytes(value)));
 
             return this;
         }
@@ -110,7 +110,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendSByte(sbyte value)
         {
-            recipeElements.Add(new byte[] { (byte)value });
+            recipeElements.Add(new DataRecipeElement(new byte[] { (byte)value }));
 
             return this;
         }
@@ -122,7 +122,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendByte(byte value)
         {
-            recipeElements.Add(new byte[] { value });
+            recipeElements.Add(new DataRecipeElement(new byte[] { value }));
 
             return this;
         }
@@ -136,7 +136,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendInt16(short value)
         {
-            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
+            recipeElements.Add(new DataRecipeElement(CorrectByteOrder(BitConverter.GetBytes(value))));
 
             return this;
         }
@@ -150,7 +150,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendUInt16(ushort value)
         {
-            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
+            recipeElements.Add(new DataRecipeElement(CorrectByteOrder(BitConverter.GetBytes(value))));
 
             return this;
         }
@@ -164,7 +164,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendInt32(int value)
         {
-            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
+            recipeElements.Add(new DataRecipeElement(CorrectByteOrder(BitConverter.GetBytes(value))));
 
             return this;
         }
@@ -178,7 +178,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendUInt32(uint value)
         {
-            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
+            recipeElements.Add(new DataRecipeElement(CorrectByteOrder(BitConverter.GetBytes(value))));
 
             return this;
         }
@@ -192,7 +192,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendInt64(long value)
         {
-            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
+            recipeElements.Add(new DataRecipeElement(CorrectByteOrder(BitConverter.GetBytes(value))));
             return this;
         }
 
@@ -205,7 +205,7 @@ namespace Capgemini.DataBuilder
         /// <returns>This DataBuilder for chaining calls.</returns>
         public DataBuilder AppendUInt64(ulong value)
         {
-            recipeElements.Add(CorrectByteOrder(BitConverter.GetBytes(value)));
+            recipeElements.Add(new DataRecipeElement(CorrectByteOrder(BitConverter.GetBytes(value))));
 
             return this;
         }
@@ -222,10 +222,7 @@ namespace Capgemini.DataBuilder
         {
             Condition.Ensures(pattern).IsNotNull().Evaluate(pattern != this);
 
-            for (int i = 0; i < count; i++)
-            {
-                recipeElements.Add(pattern.Build());
-            }
+            recipeElements.Add(new RepeatRecipeElement(count, pattern));
 
             return this;
         }
@@ -238,9 +235,9 @@ namespace Capgemini.DataBuilder
         {
             IEnumerable<byte> result = new byte[0];
 
-            foreach (byte[] element in recipeElements)
+            foreach (IRecipeElement element in recipeElements)
             {
-                result = result.Concat(element);
+                result = result.Concat(element.Build());
             }
 
             return result.ToArray();
@@ -255,20 +252,37 @@ namespace Capgemini.DataBuilder
         {
             DataBuilder other = obj as DataBuilder;
 
-            if (other == null || recipeElements.Count != other.recipeElements.Count)
+            if (other == null)
             {
                 return false;
             }
             else
             {
-                EqualsBuilder builder = new EqualsBuilder();
-                for (int i = 0; i < recipeElements.Count; i++)
-                {
-                    builder.AppendMany(recipeElements[i], other.recipeElements[i]);
-                }
-
-                return builder.IsEquals;
+                return Equals(other);
             }
+        }
+
+        /// <summary>
+        /// Compares another DataBuilder object.
+        /// </summary>
+        /// <param name="other">The DataBuilder to compare to.</param>
+        /// <returns>True if the builders are equal.</returns>
+        public bool Equals(DataBuilder other)
+        {
+            if (recipeElements.Count != other.recipeElements.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < recipeElements.Count; i++)
+            {
+                if (!recipeElements[i].Equals(other.recipeElements[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -279,7 +293,7 @@ namespace Capgemini.DataBuilder
         {
             HashCodeBuilder builder = new HashCodeBuilder();
 
-            foreach (byte[] element in recipeElements)
+            foreach (IRecipeElement element in recipeElements)
             {
                 builder.Append(element);
             }

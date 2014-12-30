@@ -170,10 +170,27 @@ namespace DataBuilderTests
         public void BuildRepeating()
         {
             byte[] result = new DataBuilder()
-                .Repeat(4, new DataBuilder().AppendByte((byte) 0xFF))
+                .Repeat(4, new DataBuilder().AppendByte(0xFF))
                 .Build();
 
             AssertEquals(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, result);
+        }
+
+        /// <summary>
+        /// Tests that you can add a repeating pattern then set the contents of that pattern later.
+        /// </summary>
+        [TestMethod]
+        public void LateRepeatPatternDefinition()
+        {
+            DataBuilder pattern = new DataBuilder();
+            DataBuilder builder = new DataBuilder()
+                .Repeat(4, pattern);
+
+            AssertEquals(new byte[0], builder.Build());
+
+            pattern.AppendByte(0xFF);
+
+            AssertEquals(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, builder.Build());
         }
 
         /// <summary>
@@ -188,6 +205,7 @@ namespace DataBuilderTests
                 .AppendUInt32(3)
                 .AppendUInt64(4)
                 .AppendByte(0xFF)
+                .Repeat(2, new DataBuilder())
                 .AppendText("Foo");
 
             string message = builder.ToString();
@@ -205,6 +223,9 @@ namespace DataBuilderTests
                 .AddEqualityGroup(new DataBuilder(), new DataBuilder())
                 .AddEqualityGroup(new DataBuilder().AppendByte(0xFF), new DataBuilder().AppendByte(0xFF))
                 .AddEqualityGroup(new DataBuilder().AppendByte(0xFE))
+                .AddEqualityGroup(new DataBuilder().Repeat(0, new DataBuilder()), new DataBuilder().Repeat(0, new DataBuilder()))
+                .AddEqualityGroup(new DataBuilder().Repeat(1, new DataBuilder()))
+                .AddEqualityGroup(new DataBuilder().Repeat(0, new DataBuilder().AppendByte(0xFF)))
                 .TestEquals();
         }
 
