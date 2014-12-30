@@ -16,7 +16,7 @@ namespace Capgemini.DataBuilder
     /// The order in which methods are called is the order in which their arguments will be added to the 
     /// finished built data.
     /// </summary>
-    public class DataBuilder
+    public sealed class DataBuilder
     {
         private IList<byte[]> recipeElements = new List<byte[]>();
         private Encoding encoding = ASCIIEncoding.ASCII;
@@ -222,6 +222,26 @@ namespace Capgemini.DataBuilder
             }
 
             return result.ToArray();
+        }
+
+        public override bool Equals(object obj)
+        {
+            DataBuilder other = obj as DataBuilder;
+
+            if (other == null || recipeElements.Count != other.recipeElements.Count)
+            {
+                return false;
+            }
+            else
+            {
+                EqualsBuilder builder = new EqualsBuilder();
+                for (int i = 0; i < recipeElements.Count; i++)
+                {
+                    builder.AppendMany(recipeElements[i], other.recipeElements[i]);
+                }
+
+                return builder.IsEquals;
+            }
         }
 
         /// <summary>

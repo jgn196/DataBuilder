@@ -194,6 +194,35 @@ namespace DataBuilderTests
             StringAssert.StartsWith(message, "DataBuilder");
         }
 
+        /// <summary>
+        /// Tests the Equals method.
+        /// </summary>
+        [TestMethod]
+        public void TestEquals()
+        {
+            DataBuilder builder1 = new DataBuilder();
+            DataBuilder builder2 = new DataBuilder();
+
+            Assert.AreEqual(builder1, builder2);
+
+            builder1.AppendByte(0xFF);
+            builder2.AppendByte(0xFF);
+
+            Assert.AreEqual(builder1, builder2);
+
+            builder1.AppendByte(0xFF);
+            builder2.AppendByte(0xFE);
+
+            Assert.AreNotEqual(builder1, builder2);
+
+            builder1 = new DataBuilder();
+            builder2 = new DataBuilder();
+
+            builder1.AppendByte(0xFF);
+
+            Assert.AreNotEqual(builder1, builder2);
+        }
+
         private void AssertEquals(byte[] expected, byte[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length, "Array lengths are not equal.");
