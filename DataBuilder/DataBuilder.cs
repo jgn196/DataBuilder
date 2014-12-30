@@ -224,6 +224,11 @@ namespace Capgemini.DataBuilder
             return result.ToArray();
         }
 
+        /// <summary>
+        /// Overrides the Equals method to compare all "recipe" elements.
+        /// </summary>
+        /// <param name="obj">The object to compare to.</param>
+        /// <returns>True if the objects are equal.</returns>
         public override bool Equals(object obj)
         {
             DataBuilder other = obj as DataBuilder;
@@ -242,6 +247,22 @@ namespace Capgemini.DataBuilder
 
                 return builder.IsEquals;
             }
+        }
+
+        /// <summary>
+        /// Overrides the GetHashCode method to take all the "recipe" elements into account.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode()
+        {
+            HashCodeBuilder builder = new HashCodeBuilder();
+
+            foreach (byte[] element in recipeElements)
+            {
+                builder.Append(element);
+            }
+
+            return builder.GetHashCode();
         }
 
         /// <summary>

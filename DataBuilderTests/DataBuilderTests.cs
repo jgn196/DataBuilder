@@ -1,4 +1,5 @@
-﻿using Capgemini.DataBuilder;
+﻿using Capgemini.CommonObjectUtils.Testing;
+using Capgemini.DataBuilder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -195,32 +196,16 @@ namespace DataBuilderTests
         }
 
         /// <summary>
-        /// Tests the Equals method.
+        /// Tests the Equals and GetHashCode methods.
         /// </summary>
         [TestMethod]
-        public void TestEquals()
+        public void TestEqualsAndHashCode()
         {
-            DataBuilder builder1 = new DataBuilder();
-            DataBuilder builder2 = new DataBuilder();
-
-            Assert.AreEqual(builder1, builder2);
-
-            builder1.AppendByte(0xFF);
-            builder2.AppendByte(0xFF);
-
-            Assert.AreEqual(builder1, builder2);
-
-            builder1.AppendByte(0xFF);
-            builder2.AppendByte(0xFE);
-
-            Assert.AreNotEqual(builder1, builder2);
-
-            builder1 = new DataBuilder();
-            builder2 = new DataBuilder();
-
-            builder1.AppendByte(0xFF);
-
-            Assert.AreNotEqual(builder1, builder2);
+            new EqualsTester()
+                .AddEqualityGroup(new DataBuilder(), new DataBuilder())
+                .AddEqualityGroup(new DataBuilder().AppendByte(0xFF), new DataBuilder().AppendByte(0xFF))
+                .AddEqualityGroup(new DataBuilder().AppendByte(0xFE))
+                .TestEquals();
         }
 
         private void AssertEquals(byte[] expected, byte[] actual)
