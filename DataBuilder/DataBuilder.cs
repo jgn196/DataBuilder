@@ -1,4 +1,5 @@
-﻿using CuttingEdge.Conditions;
+﻿using Capgemini.CommonObjectUtils;
+using CuttingEdge.Conditions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Capgemini.DataBuilder
     /// The order in which methods are called is the order in which their arguments will be added to the 
     /// finished built data.
     /// </summary>
-    public class DataBuilder
+    public sealed class DataBuilder
     {
         private IList<byte[]> recipeElements = new List<byte[]>();
         private Encoding encoding = ASCIIEncoding.ASCII;
@@ -221,6 +222,58 @@ namespace Capgemini.DataBuilder
             }
 
             return result.ToArray();
+        }
+
+        /// <summary>
+        /// Overrides the Equals method to compare all "recipe" elements.
+        /// </summary>
+        /// <param name="obj">The object to compare to.</param>
+        /// <returns>True if the objects are equal.</returns>
+        public override bool Equals(object obj)
+        {
+            DataBuilder other = obj as DataBuilder;
+
+            if (other == null || recipeElements.Count != other.recipeElements.Count)
+            {
+                return false;
+            }
+            else
+            {
+                EqualsBuilder builder = new EqualsBuilder();
+                for (int i = 0; i < recipeElements.Count; i++)
+                {
+                    builder.AppendMany(recipeElements[i], other.recipeElements[i]);
+                }
+
+                return builder.IsEquals;
+            }
+        }
+
+        /// <summary>
+        /// Overrides the GetHashCode method to take all the "recipe" elements into account.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode()
+        {
+            HashCodeBuilder builder = new HashCodeBuilder();
+
+            foreach (byte[] element in recipeElements)
+            {
+                builder.Append(element);
+            }
+
+            return builder.GetHashCode();
+        }
+
+        /// <summary>
+        /// Overrides the ToString method to return the class name and a list of the builder's "recipe" elements.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return new ToStringBuilder(this)
+                .AppendMany("recipeElements", recipeElements)
+                .ToString();
         }
 
         private byte[] CorrectByteOrder(byte[] value)

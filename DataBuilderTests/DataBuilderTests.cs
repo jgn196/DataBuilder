@@ -1,4 +1,5 @@
-﻿using Capgemini.DataBuilder;
+﻿using Capgemini.CommonObjectUtils.Testing;
+using Capgemini.DataBuilder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -173,6 +174,38 @@ namespace DataBuilderTests
                 .Build();
 
             AssertEquals(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, result);
+        }
+
+        /// <summary>
+        /// Tests the ToString method.
+        /// </summary>
+        [TestMethod]
+        public void PrintToString()
+        {
+            DataBuilder builder = new DataBuilder();
+            builder.AppendByte(1)
+                .AppendUInt16(2)
+                .AppendUInt32(3)
+                .AppendUInt64(4)
+                .AppendByte(0xFF)
+                .AppendText("Foo");
+
+            string message = builder.ToString();
+            Assert.IsNotNull(message);
+            StringAssert.StartsWith(message, "DataBuilder");
+        }
+
+        /// <summary>
+        /// Tests the Equals and GetHashCode methods.
+        /// </summary>
+        [TestMethod]
+        public void TestEqualsAndHashCode()
+        {
+            new EqualsTester()
+                .AddEqualityGroup(new DataBuilder(), new DataBuilder())
+                .AddEqualityGroup(new DataBuilder().AppendByte(0xFF), new DataBuilder().AppendByte(0xFF))
+                .AddEqualityGroup(new DataBuilder().AppendByte(0xFE))
+                .TestEquals();
         }
 
         private void AssertEquals(byte[] expected, byte[] actual)
