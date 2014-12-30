@@ -175,6 +175,25 @@ namespace DataBuilderTests
             AssertEquals(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }, result);
         }
 
+        /// <summary>
+        /// Tests the ToString method.
+        /// </summary>
+        [TestMethod]
+        public void PrintToString()
+        {
+            DataBuilder builder = new DataBuilder();
+            builder.AppendByte(1)
+                .AppendUInt16(2)
+                .AppendUInt32(3)
+                .AppendUInt64(4)
+                .AppendByte(0xFF)
+                .AppendText("Foo");
+
+            string message = builder.ToString();
+            Assert.IsNotNull(message);
+            StringAssert.StartsWith(message, "DataBuilder");
+        }
+
         private void AssertEquals(byte[] expected, byte[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length, "Array lengths are not equal.");

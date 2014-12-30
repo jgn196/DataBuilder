@@ -1,4 +1,5 @@
-﻿using CuttingEdge.Conditions;
+﻿using Capgemini.CommonObjectUtils;
+using CuttingEdge.Conditions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -221,6 +222,17 @@ namespace Capgemini.DataBuilder
             }
 
             return result.ToArray();
+        }
+
+        /// <summary>
+        /// Overrides the ToString method to return the class name and a list of the builder's "recipe" elements.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return new ToStringBuilder(this)
+                .AppendMany("recipeElements", recipeElements)
+                .ToString();
         }
 
         private byte[] CorrectByteOrder(byte[] value)
