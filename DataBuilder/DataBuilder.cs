@@ -291,14 +291,9 @@ namespace Capgemini.DataBuilder
         /// <returns>The hash code.</returns>
         public override int GetHashCode()
         {
-            HashCodeBuilder builder = new HashCodeBuilder();
-
-            foreach (IRecipeElement element in recipeElements)
-            {
-                builder.Append(element);
-            }
-
-            return builder.GetHashCode();
+            return new HashCodeBuilder()
+                .Append(recipeElements)
+                .GetHashCode();
         }
 
         /// <summary>
